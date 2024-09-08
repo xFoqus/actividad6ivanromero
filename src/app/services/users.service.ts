@@ -11,11 +11,7 @@ export class UsersService {
   private http = inject(HttpClient)
   constructor() { }
 
-  getAll(): Promise<IUser[]> {
-    return firstValueFrom(this.http.get<IUser[]>(this.baseUrl))
-  }
-
-  getByPage(user: number): Promise<IUser> {
-    return firstValueFrom(this.http.get<IUser>(`${this.baseUrl}${user}`))
+  getByPage(id: number): Promise<IUser> {
+    return firstValueFrom(this.http.get<IUser>(`${this.baseUrl}${id}`))
   }
 }
