@@ -14,4 +14,9 @@ export class UsersService {
   getByPage(id: number): Promise<IUser> {
     return firstValueFrom(this.http.get<IUser>(`${this.baseUrl}${id}`))
   }
+
+  getById(id: string): Promise<IUser> {
+    return firstValueFrom(this.http.get<IUser>(`${this.baseUrl}${id}`))
+  }
+
 }
