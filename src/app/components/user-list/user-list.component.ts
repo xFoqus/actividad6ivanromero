@@ -24,7 +24,6 @@ export class UserListComponent implements OnInit {
       // Verifica que la propiedad `results` sea un array de usuarios
       if (page && Array.isArray(page.results)) {
         this.arrUsers = page.results; // Asigna los resultados a arrUsers
-        console.log('Usuarios:', this.arrUsers);
       } else {
         console.warn('La propiedad `results` no es un array:', page.results);
       }

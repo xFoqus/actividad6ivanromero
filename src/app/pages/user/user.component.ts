@@ -31,7 +31,6 @@ export class UserComponent implements OnInit {
         try {
           // Espera a que la promesa se resuelva
           this.miUsuario = await this.usuarioService.getById(this.userId);
-          console.log('Usuario:', this.miUsuario);
         } catch (error) {
           console.error('Error al obtener el usuario:', error);
         }

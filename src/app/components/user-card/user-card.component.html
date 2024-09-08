@@ -1,10 +1,13 @@
 <div class="card shadow p-3">
-        <figure class="border border-1 border-danger">
-            <img class="img-fluid" [src]="miUser.image" [alt]="miUser.username">
-        </figure>
-        <div>
-            <h3>{{ miUser.first_name }}</h3>
-            <p>{{ miUser.last_name}}</p>
-            <a [routerLink]="['/user',miUser._id]" class="btn btn-warning" >Ver detalle</a>
-        </div>
-    </div>
+    <figure class="border border-1 border-danger">
+      <img class="img-fluid" [src]="miUser.image" [alt]="miUser.username">
+    </figure>
+    <div>
+      <h3>{{ miUser.first_name }}</h3>
+      <p>{{ miUser.last_name }}</p>
+      <a [routerLink]="['/user', miUser._id]" class="btn btn-warning">Ver detalle</a>
+      <a [routerLink]="['/updateuser', miUser._id]" class="btn btn-primary">Editar</a>
+<!--       <button (click)="deleteUser(miUser._id)" class="btn btn-danger">Eliminar</button>
+ -->    </div>
+  </div>
+  
