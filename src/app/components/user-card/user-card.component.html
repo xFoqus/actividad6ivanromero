@@ -1,0 +1,17 @@
+<div class="card shadow p-3 card-custom-bg text-white">
+    <figure class="text-center mb-4">
+      <img 
+        class="img-fluid shadow-lg rounded-circle border border-secondary"
+        [src]="miUser.image" 
+        [alt]="miUser.username" 
+        style="max-width: 250px; height: auto;"
+      />
+    </figure>
+    <div>
+      <h3>{{ miUser.first_name }}</h3>
+      <p>{{ miUser.last_name }}</p>
+      <a [routerLink]="['/user', miUser._id]" class="btn btn-warning me-2">Ver detalle</a>
+      <a [routerLink]="['/updateuser', miUser._id]" class="btn btn-primary me-2">Editar</a>
+      <button (click)="deleteUser(miUser._id)" class="btn btn-danger">Eliminar</button>
+    </div>
+  
