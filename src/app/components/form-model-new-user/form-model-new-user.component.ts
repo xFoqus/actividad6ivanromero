@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-model-new-user',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './form-model-new-user.component.html',
   styleUrl: './form-model-new-user.component.css'
 })
@@ -21,34 +22,14 @@ export class FormModelNewUserComponent {
 
   constructor(private usuarioService: UsersService) {
     this.modelForm = new FormGroup({
-      first_name: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ]),
-      second_name: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ]),
-      username: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ]),
-      image: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ]),
-      email: new FormControl(null, [
-        Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
-        Validators.required
-      ]),
-      password: new FormControl(null, [
-        Validators.minLength(8)
-      ]),
-      repitepassword: new FormControl(null, [
-        Validators.minLength(8)
-      ], [])
+      first_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      last_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      image: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]),
+      password: new FormControl('', [Validators.minLength(8), Validators.required]),
+      repitepassword: new FormControl('', [Validators.minLength(8), Validators.required])
     }, [this.checkPassword]);
-
   }
 
   checkPassword(formValue: AbstractControl): any {
@@ -59,6 +40,30 @@ export class FormModelNewUserComponent {
     } else {
       return null
     }
+  }
+  ngOnInit() {
+    this.modelForm.patchValue({
+      first_name: "",
+      second_name: "",
+      username: "",
+      image: "",
+      email: "",
+      password: "",
+      repitepassword: ""
+    });
+
+  }
+
+  getDataForm() {
+    if (this.modelForm.valid) {
+      console.log(this.modelForm.value);
+      this.modelForm.reset();
+    }
+  }
+
+  checkControl(formControlName: string, validador: string) {
+    const control = this.modelForm.get(formControlName);
+    return control?.hasError(validador) && control.touched;
   }
 
 }

@@ -53,10 +53,6 @@ export class FormModelComponent implements OnInit {
         }
       }
     });
-
-
-
-
   }
 
   checkPassword(formValue: AbstractControl): any {

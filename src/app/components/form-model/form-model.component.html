@@ -51,11 +51,13 @@
         <div class="mb-3">
           <label for="password" class="fw-bold">Password</label>
           <input type="password" class="form-control border p-2 rounded" id="password" formControlName="password" [value]="'******'"/>
+          <p class="error" *ngIf="checkControl('password','required')">El campo es requerido</p>
         </div>
 
         <div class="mb-3">
           <label for="repitepassword" class="fw-bold">Repite Password</label>
           <input type="password" class="form-control border p-2 rounded" id="repitepassword" formControlName="repitepassword" [value]="'******'"/>
+          <p class="error" *ngIf="checkControl('repitepassword','required')">El campo es requerido</p>
           <p class="error" *ngIf="modelForm.hasError('checkpassword')">Los campos de password deben coincidir.</p>
         </div>
       </div>
