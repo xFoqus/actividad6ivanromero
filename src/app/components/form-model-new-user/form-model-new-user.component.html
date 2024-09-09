@@ -1,0 +1,58 @@
+<div class="container mb-4">
+    <div class="card p-4 shadow-lg custom-form border border-secondary rounded">
+      <h3>{{tipo}}</h3>
+      <figure class="text-center mb-4">
+        <img 
+          class="img-fluid shadow-lg rounded-circle border border-secondary"
+          src="{{defultImage}}" 
+          [alt]="" 
+          style="max-width: 250px; height: auto;"
+        />
+      </figure>
+      <form class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="first_name" class="fw-bold">First Name</label>
+            <input type="text" class="form-control border p-2 rounded" id="first_name" />
+          </div>
+  
+          <div class="mb-3">
+            <label for="last_name" class="fw-bold">Last Name</label>
+            <input type="text" class="form-control border p-2 rounded" id="last_name" />
+          </div>
+  
+          <div class="mb-3">
+            <label for="username" class="fw-bold">Username</label>
+            <input type="text" class="form-control border p-2 rounded" id="username"/>
+          </div>
+  
+          <div class="mb-3">
+            <label for="image" class="fw-bold">Image URL</label>
+            <input type="text" class="form-control border p-2 rounded" id="image"/>
+          </div>
+        </div>
+  
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="email" class="fw-bold">Email</label>
+            <input type="email" class="form-control border p-2 rounded" id="email"/>
+          </div>
+  
+          <div class="mb-3">
+            <label for="password" class="fw-bold">Password</label>
+            <input type="password" class="form-control border p-2 rounded" id="password"/>
+          </div>
+  
+          <div class="mb-3">
+            <label for="repitepassword" class="fw-bold">Repite Password</label>
+            <input type="password" class="form-control border p-2 rounded" id="repitepassword"/>
+          </div>
+        </div>
+  
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-danger btn-lg px-4 me-2" [routerLink]="['/home']">Volver</button>
+          <button type="submit" class="btn btn-danger btn-lg" [disabled]="!modelForm.valid">{{tipo}}</button>
+        </div>
+      </form>
+    </div>
+  </div>

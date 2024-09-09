@@ -1,0 +1,18 @@
+.custom-navbar {
+    border-bottom: 3px solid red;
+    /* Borde rojo en la parte inferior */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para darle profundidad */
+}
+
+.navbar-nav .nav-link {
+    margin-right: 15px;
+    /* Espaciado entre los elementos del menú */
+    transition: color 0.3s ease-in-out;
+    /* Transición suave para los colores */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f0ad4e;
+    /* Cambia el color al pasar el cursor */
+}

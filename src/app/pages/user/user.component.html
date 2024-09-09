@@ -1,18 +1,59 @@
 <div class="container">
-    <div *ngIf="miUsuario">
-        <section class="row g-3">
-            <figure class="col-12 col-md-4">
-                @if(!miUsuario.image.startsWith('http')){
-                    <img class="img-fluid" [src]=" './assets/images/'  + miUsuario.image" [alt]="miUsuario.username" >
-                }@else{
-                    <img class="img-fluid" [src]="miUsuario.image" [alt]="miUsuario.username" >
-                }
-            </figure>
-            <div class="col-12 col-md-8">
-                <h2>{{miUsuario.first_name}}</h2>
-                <p>ID: {{miUsuario.id}}</p>
-                <p>Email: {{miUsuario.email}}</p>
+    <div *ngIf="miUsuario" class="container mb-4 pt-4">
+        <div class="card p-4 shadow-lg custom-form border border-secondary rounded">
+          <figure class="text-center mb-4">
+            <img 
+              class="img-fluid shadow-lg rounded-circle border border-secondary"
+              [src]="miUsuario.image" 
+              [alt]="miUsuario.username" 
+              style="max-width: 250px; height: auto;"
+            />
+          </figure>
+      
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="first_name" class="fw-bold">First Name</label>
+                <p id="first_name" class="border p-2 rounded">{{ miUsuario.first_name }}</p>
+              </div>
+      
+              <div class="mb-3">
+                <label for="last_name" class="fw-bold">Last Name</label>
+                <p id="last_name" class="border p-2 rounded">{{ miUsuario.last_name }}</p>
+              </div>
+      
+              <div class="mb-3">
+                <label for="username" class="fw-bold">Username</label>
+                <p id="username" class="border p-2 rounded">{{ miUsuario.username }}</p>
+              </div>
+      
+              <div class="mb-3">
+                <label for="image" class="fw-bold">Image URL</label>
+                <p id="image" class="border p-2 rounded">{{ miUsuario.image }}</p>
+              </div>
             </div>
-        </section>
-    </div>
+      
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="email" class="fw-bold">Email</label>
+                <p id="email" class="border p-2 rounded">{{ miUsuario.email }}</p>
+              </div>
+      
+              <div class="mb-3">
+                <label for="password" class="fw-bold">Password</label>
+                <p id="password" class="border p-2 rounded">*******</p> <!-- Hiding the password for security reasons -->
+              </div>
+      
+              <div class="mb-3">
+                <label for="repitepassword" class="fw-bold">Repite Password</label>
+                <p id="repitepassword" class="border p-2 rounded">*******</p> <!-- Hiding the repeated password for security reasons -->
+              </div>
+            </div>
+          </div>
+      
+          <div class="text-center mt-3">
+            <button class="btn btn-danger btn-lg px-4" [routerLink]="['/home']">Volver</button>
+          </div>
+        </div>
+      </div>
 </div>

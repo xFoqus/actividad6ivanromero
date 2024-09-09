@@ -19,4 +19,8 @@ export class UsersService {
     return firstValueFrom(this.http.get<IUser>(`${this.baseUrl}${id}`))
   }
 
+  delete(id: string): Promise<IUser> {
+    return firstValueFrom(this.http.delete<IUser>(`${this.baseUrl}${id}`))
+  }
+
 }

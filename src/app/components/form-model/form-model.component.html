@@ -1,10 +1,6 @@
 <div *ngIf="miUsuario" class="container mb-4">
-  <form
-    [formGroup]="modelForm"
-    class="card p-4 shadow custom-form"
-    (ngSubmit)="getDataForm()"
-    novalidate
-  >
+  <div class="card p-4 shadow-lg custom-form border border-secondary rounded">
+    <h3>{{tipo}}</h3>
     <figure class="text-center mb-4">
       <img 
         class="img-fluid shadow-lg rounded-circle border border-secondary"
@@ -13,58 +9,61 @@
         style="max-width: 250px; height: auto;"
       />
     </figure>
-
-    <div class="row">
+    <form class="row" [formGroup]="modelForm" (ngSubmit)="getDataForm()">
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="first_name" class="form-label">First Name</label>
-          <input type="text" class="form-control" formControlName="first_name" id="first_name" />
-          <p *ngIf="checkControl('first_name', 'required')" class="text-danger">El campo es requerido</p>
-          <p *ngIf="checkControl('first_name', 'minlength')" class="text-danger">Debe tener al menos 3 caracteres</p>
+          <label for="first_name" class="fw-bold">First Name</label>
+          <input type="text" class="form-control border p-2 rounded" id="first_name" formControlName="first_name" [value]="miUsuario.first_name"/>
+          <p class="error" *ngIf="checkControl('first_name','required')">El campo es requerido</p>
+          <p class="error" *ngIf="checkControl('first_name','minlength')">Longitud mínima de un nombre debe ser 3 caracteres</p>
         </div>
 
         <div class="mb-3">
-          <label for="last_name" class="form-label">Last Name</label>
-          <input type="text" class="form-control" formControlName="last_name" id="last_name" />
-          <p *ngIf="checkControl('last_name', 'required')" class="text-danger">El campo es requerido</p>
-          <p *ngIf="checkControl('last_name', 'minlength')" class="text-danger">Debe tener al menos 3 caracteres</p>
+          <label for="last_name" class="fw-bold">Last Name</label>
+          <input type="text" class="form-control border p-2 rounded" id="last_name" formControlName="last_name" [value]="miUsuario.last_name"/>
+          <p class="error" *ngIf="checkControl('last_name','required')">El campo es requerido</p>
+          <p class="error" *ngIf="checkControl('last_name','minlength')">Longitud mínima de un apellido debe ser 3 caracteres</p>
         </div>
 
         <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" formControlName="username" id="username" />
-          <p *ngIf="checkControl('username', 'required')" class="text-danger">El campo es requerido</p>
+          <label for="username" class="fw-bold">Username</label>
+          <input type="text" class="form-control border p-2 rounded" id="username" formControlName="username" [value]="miUsuario.username"/>
+          <p class="error" *ngIf="checkControl('username','required')">El campo es requerido</p>
+          <p class="error" *ngIf="checkControl('username','minlength')">Longitud mínima de un username debe ser 3 caracteres</p>
         </div>
 
         <div class="mb-3">
-          <label for="image" class="form-label">Image URL</label>
-          <input type="url" class="form-control" formControlName="image" id="image" />
+          <label for="image" class="fw-bold">Image URL</label>
+          <input type="text" class="form-control border p-2 rounded" id="image" formControlName="image" [value]="miUsuario.image"/>
+          <p class="error" *ngIf="checkControl('image','required')">El campo es requerido</p>
+          <p class="error" *ngIf="checkControl('image','minlength')">Longitud mínima de la imagen debe ser 3 caracteres</p>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" formControlName="email" id="email" />
-          <p *ngIf="checkControl('email', 'required')" class="text-danger">El campo es requerido</p>
-          <p *ngIf="checkControl('email', 'pattern')" class="text-danger">Introduce un email válido</p>
+          <label for="email" class="fw-bold">Email</label>
+          <input type="email" class="form-control border p-2 rounded" id="email" formControlName="email" [value]="miUsuario.email" />
+          <p class="error" *ngIf="checkControl('email','required')">El campo es requerido</p>
+          <p class="error" *ngIf="checkControl('email','pattern')">El email es incorrecto</p>
         </div>
 
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" formControlName="password" id="password" />
+          <label for="password" class="fw-bold">Password</label>
+          <input type="password" class="form-control border p-2 rounded" id="password" formControlName="password" [value]="'******'"/>
         </div>
 
         <div class="mb-3">
-          <label for="repitepassword" class="form-label">Repite Password</label>
-          <input type="password" class="form-control" formControlName="repitepassword" id="repitepassword" />
-          <p *ngIf="modelForm.hasError('checkpassword')" class="text-danger">Las contraseñas no coinciden</p>
+          <label for="repitepassword" class="fw-bold">Repite Password</label>
+          <input type="password" class="form-control border p-2 rounded" id="repitepassword" formControlName="repitepassword" [value]="'******'"/>
+          <p class="error" *ngIf="modelForm.hasError('checkpassword')">Los campos de password deben coincidir.</p>
         </div>
       </div>
-    </div>
 
-    <div class="text-center mt-3">
-      <input type="submit" class="btn btn-danger" value="Guardar" [disabled]="!modelForm.valid" />
-    </div>
-  </form>
+      <div class="text-center mt-4">
+        <button type="button" class="btn btn-danger btn-lg px-4 me-2" [routerLink]="['/home']">Volver</button>
+        <button type="submit" class="btn btn-danger btn-lg" [disabled]="!modelForm.valid">{{tipo}}</button>
+      </div>
+    </form>
+  </div>
 </div>
