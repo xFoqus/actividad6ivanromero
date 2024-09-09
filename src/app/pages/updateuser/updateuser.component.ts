@@ -3,11 +3,12 @@ import { IUser } from '../../interfaces/iuser.interface';
 import { UsersService } from '../../services/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormModelComponent } from '../../components/form-model/form-model.component';
 
 @Component({
   selector: 'app-updateuser',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormModelComponent],
   templateUrl: './updateuser.component.html',
   styleUrl: './updateuser.component.css'
 })
@@ -24,11 +25,10 @@ export class UpdateuserComponent {
   async ngOnInit() {
     // Suscríbete a los parámetros de la ruta
     this.activateRoute.params.subscribe(async (params) => {
-      this.userId = params['id']; // Asegúrate de que el parámetro en la ruta es 'id'
+      this.userId = params['id'];
 
       if (this.userId) {
         try {
-          // Espera a que la promesa se resuelva
           this.miUsuario = await this.usuarioService.getById(this.userId);
         } catch (error) {
           console.error('Error al obtener el usuario:', error);

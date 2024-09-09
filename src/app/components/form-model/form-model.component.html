@@ -1,0 +1,70 @@
+<div *ngIf="miUsuario" class="container mb-4">
+  <form
+    [formGroup]="modelForm"
+    class="card p-4 shadow custom-form"
+    (ngSubmit)="getDataForm()"
+    novalidate
+  >
+    <figure class="text-center mb-4">
+      <img 
+        class="img-fluid shadow-lg rounded-circle border border-secondary"
+        [src]="miUsuario.image" 
+        [alt]="miUsuario.username" 
+        style="max-width: 250px; height: auto;"
+      />
+    </figure>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="first_name" class="form-label">First Name</label>
+          <input type="text" class="form-control" formControlName="first_name" id="first_name" />
+          <p *ngIf="checkControl('first_name', 'required')" class="text-danger">El campo es requerido</p>
+          <p *ngIf="checkControl('first_name', 'minlength')" class="text-danger">Debe tener al menos 3 caracteres</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input type="text" class="form-control" formControlName="last_name" id="last_name" />
+          <p *ngIf="checkControl('last_name', 'required')" class="text-danger">El campo es requerido</p>
+          <p *ngIf="checkControl('last_name', 'minlength')" class="text-danger">Debe tener al menos 3 caracteres</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" formControlName="username" id="username" />
+          <p *ngIf="checkControl('username', 'required')" class="text-danger">El campo es requerido</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL</label>
+          <input type="url" class="form-control" formControlName="image" id="image" />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" id="email" />
+          <p *ngIf="checkControl('email', 'required')" class="text-danger">El campo es requerido</p>
+          <p *ngIf="checkControl('email', 'pattern')" class="text-danger">Introduce un email válido</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="password" />
+        </div>
+
+        <div class="mb-3">
+          <label for="repitepassword" class="form-label">Repite Password</label>
+          <input type="password" class="form-control" formControlName="repitepassword" id="repitepassword" />
+          <p *ngIf="modelForm.hasError('checkpassword')" class="text-danger">Las contraseñas no coinciden</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <input type="submit" class="btn btn-danger" value="Guardar" [disabled]="!modelForm.valid" />
+    </div>
+  </form>
+</div>

@@ -1,7 +1,4 @@
-<section class="container">
-    <h2>Lista de usuarios</h2>
-    <hr>
-    <div class="my-2 row g-3">
+<div class="my-2 row g-3">
         @for (user of arrUsers; track user._id) {
             <article class="col-12 col-md-6 col-lg-4">
                 <app-user-card [miUser]="user" ></app-user-card>
@@ -9,6 +6,4 @@
         }@empty {
             <strong>NO HAY PRODUCTOS DISPONIBLES</strong>
         }
-
-    </div>
-</section>
+</div>

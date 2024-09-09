@@ -10,6 +10,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './user-card.component.css'
 })
 export class UserCardComponent {
+
   @Input() miUser!: IUser;
+
+
+  deleteUser(id: string) {
+
+  }
 
 }
