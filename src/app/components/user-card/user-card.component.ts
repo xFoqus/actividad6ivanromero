@@ -25,7 +25,6 @@ export class UserCardComponent {
       } catch (error) {
         console.log(error)
       }
-      //llamo al servicio
     }
   }
 
