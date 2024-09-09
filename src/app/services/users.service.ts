@@ -22,5 +22,11 @@ export class UsersService {
   delete(id: string): Promise<IUser> {
     return firstValueFrom(this.http.delete<IUser>(`${this.baseUrl}${id}`))
   }
+  insert(body: IUser): Promise<IUser> {
+    return firstValueFrom(this.http.post<IUser>(this.baseUrl, body))
+  }
+  update(body: IUser): Promise<IUser> {
+    return firstValueFrom(this.http.put<IUser>(`${this.baseUrl}${body._id}`, body))
+  }
 
 }

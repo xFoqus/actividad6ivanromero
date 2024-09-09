@@ -64,7 +64,7 @@
 
       <div class="text-center mt-4">
         <button type="button" class="btn btn-danger btn-lg px-4 me-2" [routerLink]="['/home']">Volver</button>
-        <button type="submit" class="btn btn-danger btn-lg" [disabled]="!modelForm.valid">{{tipo}}</button>
+        <button type="submit" (click)="update()" class="btn btn-danger btn-lg" [disabled]="!modelForm.valid">{{tipo}}</button>
       </div>
     </form>
   </div>

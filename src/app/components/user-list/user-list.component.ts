@@ -1,8 +1,9 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, inject, Input, OnInit } from '@angular/core';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UserCardComponent } from '../user-card/user-card.component';
 import { PagesService } from '../../services/pages.service';
 import { IPage } from '../../interfaces/ipage.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',

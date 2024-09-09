@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../interfaces/iuser.interface';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +18,11 @@ export class FormModelComponent implements OnInit {
   miUsuario!: IUser;
   userId: string | null = null;
   tipo: string = 'Guardar';
+  userService = inject(UsersService)
+  error: any[] = [];
+  router = inject(Router)
+
+
 
   constructor(private usuarioService: UsersService) {
     this.modelForm = new FormGroup({
@@ -39,21 +44,24 @@ export class FormModelComponent implements OnInit {
         try {
           this.miUsuario = await this.usuarioService.getById(this.userId);
 
-          this.modelForm.patchValue({
-            first_name: this.miUsuario.first_name,
-            second_name: this.miUsuario.last_name,
-            username: this.miUsuario.username,
-            image: this.miUsuario.image,
-            email: this.miUsuario.email,
-            password: this.miUsuario.password,
-            repitepassword: this.miUsuario.password
-          });
+          this.modelForm = new FormGroup({
+            first_name: new FormControl(this.miUsuario.first_name, [Validators.required, Validators.minLength(3)]),
+            last_name: new FormControl(this.miUsuario.last_name, [Validators.required, Validators.minLength(3)]),
+            username: new FormControl(this.miUsuario.username, [Validators.required, Validators.minLength(3)]),
+            image: new FormControl(this.miUsuario.image, [Validators.required, Validators.minLength(3)]),
+            email: new FormControl(this.miUsuario.email, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]),
+            password: new FormControl(this.miUsuario.password, [Validators.minLength(8), Validators.required]),
+            repitepassword: new FormControl(this.miUsuario.password, [Validators.minLength(8), Validators.required])
+          }, [this.checkPassword]);
+
+
         } catch (error) {
           console.error('Error al obtener el usuario:', error);
         }
       }
     });
   }
+
 
   checkPassword(formValue: AbstractControl): any {
     const password = formValue.get('password')?.value;
@@ -63,6 +71,20 @@ export class FormModelComponent implements OnInit {
     } else {
       return null
     }
+  }
+
+
+  async update() {
+    try {
+      const response: IUser = await this.userService.update(this.modelForm.value)
+      if (response._id) {
+        this.router.navigate(['/home'])
+      }
+    } catch ({ error }: any) {
+      this.error = error
+      console.log(error)
+    }
+
   }
 
   getDataForm() {

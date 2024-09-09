@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
+import { IUser } from '../../interfaces/iuser.interface';
 
 @Component({
   selector: 'app-form-model-new-user',
@@ -17,6 +18,11 @@ export class FormModelNewUserComponent {
   defultImage: string = 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp'
   imageAltDefault: string = 'default'
   https: any;
+  activateRoute = inject(ActivatedRoute)
+  userService = inject(UsersService)
+  router = inject(Router)
+  error: any[] = [];
+
 
 
 
@@ -41,24 +47,48 @@ export class FormModelNewUserComponent {
       return null
     }
   }
-  ngOnInit() {
-    this.modelForm.patchValue({
-      first_name: "",
-      second_name: "",
-      username: "",
-      image: "",
-      email: "",
-      password: "",
-      repitepassword: ""
-    });
+  async ngOnInit() {
+    this.activateRoute.params.subscribe(async (params: any) => {
+      if (params.id) {
+        const user: IUser = await this.userService.getById(params.id)
+        this.modelForm.setValue(user)
+
+        this.modelForm = new FormGroup({
+          first_name: new FormControl(user.first_name, [Validators.required, Validators.minLength(3)]),
+          last_name: new FormControl(user.last_name, [Validators.required, Validators.minLength(3)]),
+          username: new FormControl(user.username, [Validators.required, Validators.minLength(3)]),
+          image: new FormControl(user.image, [Validators.required, Validators.minLength(3)]),
+          email: new FormControl(user.email, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]),
+          password: new FormControl(user.password, [Validators.minLength(8), Validators.required]),
+          repitepassword: new FormControl(user.password, [Validators.minLength(8), Validators.required])
+        }, [this.checkPassword]);
+
+
+
+      }
+    })
 
   }
 
-  getDataForm() {
+  async getDataForm() {
     if (this.modelForm.valid) {
       console.log(this.modelForm.value);
       this.modelForm.reset();
     }
+
+  }
+
+  async insert() {
+    try {
+      const response: IUser = await this.userService.insert(this.modelForm.value)
+      if (response._id) {
+        console.log("SIIIIII")
+      }
+    } catch ({ error }: any) {
+      this.error = error
+      console.log(error)
+    }
+
   }
 
   checkControl(formControlName: string, validador: string) {
